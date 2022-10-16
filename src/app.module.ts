@@ -7,6 +7,10 @@ import { CryptoService } from './crypto/crypto.service';
 import { Crypto } from './crypto/crypto.entity';
 import { CryptoModule } from './crypto/crypto.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { WatchlistController } from './watchlist/watchlist.controller';
+import { WatchlistService } from './watchlist/watchlist.service';
+import { WatchlistModule } from './watchlist/watchlist.module';
+import { Watchlist } from './watchlist/watchlist.entity';
 
 @Module({
   imports: [
@@ -17,13 +21,14 @@ import { ScheduleModule } from '@nestjs/schedule';
       username: 'acidball',
       password: 'acidball',
       database: 'cryptonotification',
-      entities: [Crypto],
+      entities: [Crypto, Watchlist],
       synchronize: true,
     }),
     CryptoModule,
     ScheduleModule.forRoot(),
+    WatchlistModule,
   ],
-  controllers: [AppController, CryptoController],
-  providers: [AppService, CryptoService],
+  controllers: [AppController, CryptoController, WatchlistController],
+  providers: [AppService, CryptoService, WatchlistService],
 })
 export class AppModule {}
