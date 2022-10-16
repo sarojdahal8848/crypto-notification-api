@@ -18,7 +18,7 @@ export class CryptoService {
     private cryptoRepository: Repository<Crypto>,
   ) {}
 
-  //   @Cron(CronExpression.EVERY_5_MINUTES)
+  @Cron(CronExpression.EVERY_5_MINUTES)
   async create() {
     const cryptoListFunc = async () => {
       const browser = await puppeteer.launch({
