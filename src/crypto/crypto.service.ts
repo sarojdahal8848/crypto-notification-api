@@ -21,9 +21,7 @@ export class CryptoService {
   @Cron(CronExpression.EVERY_5_MINUTES)
   async create() {
     const cryptoListFunc = async () => {
-      const browser = await puppeteer.launch({
-        headless: false,
-      });
+      const browser = await puppeteer.launch();
       const page = await browser.newPage();
       await page.goto('https://coinranking.com/');
 
@@ -57,8 +55,8 @@ export class CryptoService {
                 image,
                 name: name?.innerText,
                 code: code?.innerText,
-                price: price?.innerText,
-                market_cap: market_cap?.innerText,
+                price: price?.innerText.split(' ')[1].replace(/\,/g, ''),
+                market_cap: market_cap?.innerText.split(' ')[1],
                 _24h: _24h?.innerText,
               };
             },
@@ -79,11 +77,20 @@ export class CryptoService {
       return finalList;
     };
     const cryptoList = await cryptoListFunc();
-    return await this.cryptoRepository.upsert(cryptoList, ['code']);
+    const finalCryptoList = cryptoList.filter(
+      (val) =>
+        val.image !== '' ||
+        val.name !== '' ||
+        val.code !== '' ||
+        val.price !== '' ||
+        val.market_cap !== '' ||
+        val._24h !== '',
+    );
+    return await this.cryptoRepository.upsert(finalCryptoList, ['code']);
   }
 
   async findAll() {
-    return await this.cryptoRepository.findAndCount();
+    return await this.cryptoRepository.find();
   }
 
   async paginate(

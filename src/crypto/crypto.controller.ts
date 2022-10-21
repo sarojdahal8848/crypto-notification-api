@@ -1,13 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Controller,
   DefaultValuePipe,
   Get,
   ParseIntPipe,
   Query,
+  Sse,
 } from '@nestjs/common';
 import { CryptoService } from './crypto.service';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { Crypto } from './crypto.entity';
+import { interval, map, Observable, switchMap } from 'rxjs';
 
 @Controller('crypto')
 export class CryptoController {
@@ -28,4 +31,28 @@ export class CryptoController {
       search,
     );
   }
+
+  // @Sse('sse')
+  // sse(
+  //   @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+  //   @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+  //   @Query('search', new DefaultValuePipe('')) search: string = '',
+  // ): Observable<any> {
+  //   limit = limit > 50 ? 50 : limit;
+  // return interval(10000).pipe(
+  //   switchMap(() =>
+  //     this.cryptoService.paginate(
+  //       {
+  //         page,
+  //         limit,
+  //         route: 'http://localhost:3000/crypto',
+  //       },
+  //       search,
+  //     ),
+  //   ),
+  //   map((p) => ({
+  //     data: p,
+  //   })),
+  // );
+  // }
 }

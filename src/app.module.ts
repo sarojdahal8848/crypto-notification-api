@@ -11,6 +11,8 @@ import { WatchlistController } from './watchlist/watchlist.controller';
 import { WatchlistService } from './watchlist/watchlist.service';
 import { WatchlistModule } from './watchlist/watchlist.module';
 import { Watchlist } from './watchlist/watchlist.entity';
+import { ConfigModule } from '@nestjs/config';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { Watchlist } from './watchlist/watchlist.entity';
     CryptoModule,
     ScheduleModule.forRoot(),
     WatchlistModule,
+    ConfigModule.forRoot(),
+    NotificationModule,
   ],
   controllers: [AppController, CryptoController, WatchlistController],
   providers: [AppService, CryptoService, WatchlistService],

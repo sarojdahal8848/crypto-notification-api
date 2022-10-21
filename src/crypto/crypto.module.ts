@@ -8,6 +8,6 @@ import { CryptoService } from './crypto.service';
   imports: [TypeOrmModule.forFeature([Crypto])],
   providers: [CryptoService],
   controllers: [CryptoController],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, CryptoService],
 })
 export class CryptoModule {}

@@ -1,14 +1,14 @@
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
 export class CreateWatchListDTO {
   @IsString()
   @IsNotEmpty()
   code: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   min_price: number;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   max_price: number;
 }
