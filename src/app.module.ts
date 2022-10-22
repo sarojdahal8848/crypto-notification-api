@@ -11,11 +11,27 @@ import { WatchlistController } from './watchlist/watchlist.controller';
 import { WatchlistService } from './watchlist/watchlist.service';
 import { WatchlistModule } from './watchlist/watchlist.module';
 import { Watchlist } from './watchlist/watchlist.entity';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { NotificationModule } from './notification/notification.module';
+import { constants } from './utils/constants';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    // TypeOrmModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   useFactory: (configService: ConfigService) => ({
+    //     type: 'postgres',
+    //     host: 'localhost',
+    //     port: 5432,
+    //     username: configService.get('DB_USERNAME'),
+    //     password: configService.get('DB_PASSWORD'),
+    //     database: configService.get('DB_DATABASE'),
+    //     entities: [Crypto, Watchlist],
+    //     synchronize: true,
+    //   }),
+    //   inject: [ConfigService],
+    // }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -29,7 +45,6 @@ import { NotificationModule } from './notification/notification.module';
     CryptoModule,
     ScheduleModule.forRoot(),
     WatchlistModule,
-    ConfigModule.forRoot(),
     NotificationModule,
   ],
   controllers: [AppController, CryptoController, WatchlistController],

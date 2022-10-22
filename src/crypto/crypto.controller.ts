@@ -5,12 +5,10 @@ import {
   Get,
   ParseIntPipe,
   Query,
-  Sse,
 } from '@nestjs/common';
-import { CryptoService } from './crypto.service';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { Crypto } from './crypto.entity';
-import { interval, map, Observable, switchMap } from 'rxjs';
+import { CryptoService } from './crypto.service';
 
 @Controller('crypto')
 export class CryptoController {
